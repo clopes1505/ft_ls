@@ -27,7 +27,7 @@ int	main(int ac, char **av)
 		}
             while ((sd = readdir(dir)) != NULL)
             {
-                ft_strcpy(temp[k], &sd->d_name[k]);
+                ft_strcpy(temp[k], &sd->d_name[k + 2]);
                 ft_putstr(temp[k]);
                 ft_putchar('\t');
             }
