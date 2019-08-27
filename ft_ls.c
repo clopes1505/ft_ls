@@ -11,26 +11,54 @@
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-int	main(int ac, char **av)
-{
-		DIR     *dir;
-		struct  dirent *sd;
-        char    *temp[1024];
-        int     k;
 
-        k = 0;
-		dir = opendir(".");
-		if (dir == NULL)
+void	sort_files(char **str, int max)
+{
+	char	temp[1024];
+	int		k;
+	int		i;
+
+	k = 0;
+	i = k + 1;
+	while(k < max - 1)
+	{
+		while(i < max)
 		{
-			ft_putendl("Unable to read current directory");
-			exit (1);
+			if (ft_strcmp(str[k], str[i]) > 0)
+			{
+				ft_strcpy(temp, str[k]); 
+    			ft_strcpy(str[k], str[i]);
+    			ft_strcpy(str[i], temp);
+			}
+			i++;
 		}
-            while ((sd = readdir(dir)) != NULL)
-            {
-                ft_strcpy(temp[k], &sd->d_name[k + 2]);
-                ft_putstr(temp[k]);
-                ft_putchar('\t');
-            }
-		closedir(dir);
-		return (0);
+		k++;
+	}
+	ft_putendl(*str);
+}
+
+int		main(int argc, char **argv)
+{
+	DIR		*dir;
+	struct dirent *sd;
+	char	*str[1024];
+	int		k;
+
+	k = 0;
+	dir = opendir(".");
+	if (dir == NULL)
+	{
+		ft_putendl("Unable to read current directory");
+		exit(1);
+	}
+	while ((sd = readdir(dir))!= NULL)
+	{
+		ft_strcpy(str[k], sd->d_name);
+		printf("%s", str[k]);
+		k++;
+	}
+	printf("%s", str[k]);
+	//sort_files(str, k);
+	closedir(dir);
+	return (0);
 }
