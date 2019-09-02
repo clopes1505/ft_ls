@@ -12,20 +12,20 @@
 
 #include "ft_ls.h"
 
-void	sort_files(char **str, int max)
+void	sort_files(char str[1024][1024], int max)
 {
-	char	temp[1024];
-	int		k;
+ 	char	temp[1024];
+ 	int		k;
 	int		i;
 
-	k = 0;
-	i = k + 1;
+	k = 2;
 	while(k < max - 1)
 	{
+		i = k + 1;
 		while(i < max)
 		{
 			if (ft_strcmp(str[k], str[i]) > 0)
-			{
+		 	{
 				ft_strcpy(temp, str[k]); 
     			ft_strcpy(str[k], str[i]);
     			ft_strcpy(str[i], temp);
@@ -34,14 +34,19 @@ void	sort_files(char **str, int max)
 		}
 		k++;
 	}
-	ft_putendl(*str);
+/*	k = 0;  
+	 while(k < max)
+		{
+			ft_putendl(str[k]);
+			k++;
+		} */
 }
 
 int		main(int argc, char **argv)
 {
 	DIR		*dir;
 	struct dirent *sd;
-	char	*str[1024];
+	char	str[1024][1024];
 	int		k;
 
 	k = 0;
@@ -54,11 +59,8 @@ int		main(int argc, char **argv)
 	while ((sd = readdir(dir))!= NULL)
 	{
 		ft_strcpy(str[k], sd->d_name);
-		printf("%s", str[k]);
 		k++;
 	}
-	printf("%s", str[k]);
-	//sort_files(str, k);
 	closedir(dir);
-	return (0);
+	sort_files(str, k);
 }
