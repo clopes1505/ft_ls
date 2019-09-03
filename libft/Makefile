@@ -7,14 +7,14 @@ NAME = libft.a
 all: $(NAME)
 
 $(NAME):
-	$(CC) $(SRC) -c $(FLAGS)
-	ar rc $(NAME) $(OBJ)
+	@$(CC) $(SRC) -c $(FLAGS)
+	@ar rc $(NAME) $(OBJ)
 
 clean:
-	rm -rf $(OBJ)
+	@rm -rf $(OBJ)
 
 fclean: clean
-	rm -rf libft.a
+	@rm -rf libft.a
 
 re: fclean all
 

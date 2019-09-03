@@ -18,7 +18,7 @@ void	sort_files(char str[1024][1024], int max)
  	int		k;
 	int		i;
 
-	k = 2;
+	k = 0;
 	while(k < max - 1)
 	{
 		i = k + 1;
@@ -34,12 +34,12 @@ void	sort_files(char str[1024][1024], int max)
 		}
 		k++;
 	}
-/*	k = 0;  
+	k = 0;  
 	 while(k < max)
 		{
 			ft_putendl(str[k]);
 			k++;
-		} */
+		}
 }
 
 int		main(int argc, char **argv)
