@@ -13,94 +13,112 @@
 
 #include "../includes/ft_ls.h"
 
-// void	sort_files(char str[1024][1024], int max)
-// {
-//  	char	temp[1024];
-//  	int		k;
-// 	int		i;
 
-// 	k = 0;
-// 	while(k < max - 1)
-// 	{
-// 		i = k + 1;
-// 		while(i < max)
-// 		{
-// 			if (ft_strcmp(str[k], str[i]) > 0)
-// 		 	{
-// 				ft_strcpy(temp, str[k]); 
-//     			ft_strcpy(str[k], str[i]);
-//     			ft_strcpy(str[i], temp);
-// 			}
-// 			i++;
-// 		}
-// 		k++;
-// 	}
-// 	k = 0;  
-// 	 while(k < max)
-// 		{
-// 			ft_putendl(str[k]);
-// 			k++;
-// 		}
-// }
-void ft_ls() //standard ls (no flags)
+void	print_list(t_ls *store)
+{
+	t_ls *list;
+	list = store;
+
+	while (list->next != NULL)
+	{
+		if(list->name[0] == '.')
+			{
+				list = list->next;
+				continue;
+			}
+		ft_putendl(list->name);
+		list = list->next;
+	}
+}
+void	err_handle(DIR *dir,)
+{
+
+}
+
+t_ls	*ft_ls(t_ls *store, char *path) //standard ls (no flags)
 {
 	DIR		*dir;
 	struct dirent *sd;
-	int		k;
-	k = 0;
-	dir = opendir(".");
-	if (dir == NULL)
-	{
-		ft_putendl("Unable to read current directory");
-		exit(1);
-	}
-	while ((sd = readdir(dir))!= NULL)
-	{
-		ft_putendl(sd->d_name);
-	}
-	closedir(dir);
-}
-void	flags(char *flags) // tells program what function to do dependant on the flag
-{
+	char *error;
+	t_ls *new;
 
+	new = (t_ls*)malloc(sizeof(t_ls));
+	store = new;
+	dir = opendir(path);
+	if (dir == NULL)
+		err_handle(sd); 
+	while ((sd = readdir(dir)))
+	{
+		new->name = sd->d_name;
+		new->next = (t_ls*)malloc(sizeof(t_ls));
+		new = new->next;
+	}
+	new->next = NULL;
+	closedir(dir);
+	return(store);
 }
-int		is_flag(char *str) //checks if there is a flag in the arguments passed
-{
-	if(str[0] == '-')
-		return(1);
-	return(0);
-}
+
 int		main(int argc, char **argv)
 {
-	if(argc == 2)
+	t_ls *store;
+	char *path;
+	store  = NULL;
+	if(argc == 2 && argv[1][0] != '-')
 	{
-		if(is_flag(argv[1]))
-			flags(argv[1]);	
+		path = ft_strdup(argv[1]);
+		ft_ls(store, path);
 	}
 	else
-		ft_ls();
-	return(0);
+		ft_ls(store, ".");
+	return (0);
 }
+
+// void	flags(char *flags) // tells program what function to do dependant on the flag
+// {
+// 	if(flags[1] == 'a')
+// 		dash_a;
+// 	if(flags[1] == 'r')
+// 		dash_r;
+// 	if(flags[1] == 'l')
+// 		dash_l;
+// 	if(flags[1] == 't')
+// 		dash_t;
+// }
+// void	dash_a() //displays every item including hidden .files
+// {
+
+// }
+// void	dash_r() //reverse order
+// {
+
+// }
+// void	dash_t() //sort by modification time, newest first
+// {
+
+// }
+// void	dash_l() //long list version
+// {
+
+// }
+// int		is_flag(char *str) //checks if there is a flag in the arguments passed
+// {
+// 	if(str[0] == '-')
+// 		return(1);
+// 	return(0);
+// }
 // int		main(int argc, char **argv)
 // {
-// 	DIR		*dir;
-// 	struct dirent *sd;
-// 	char	str[1024][1024];
-// 	int		k;
-// 	(void) argc;
-// 	(void) argv;
-// 	k = 0;
-// 	dir = opendir(".");
-// 	if (dir == NULL)
+// 	if(argc == 2)
 // 	{
-// 		ft_putendl("Unable to read current directory");
-// 		exit(1);
+// 		if(is_flag(argv[1]))
+// 			flags(argv[1]);	
 // 	}
-// 	while ((sd = readdir(dir))!= NULL)
-// 	{
-// 		ft_strcpy(str[k], sd->d_name);
-// 		k++;
-// 	}
-// 	closedir(dir);
-// 	sort_files(str, k);
+// 	else if(argc == 1)
+// 		ft_ls();
+// 	return(0);
+// }
+// int		main()//)t argc, char **argv)
+// {
+// 	ft_ls();
+// 	return(0);
 // }

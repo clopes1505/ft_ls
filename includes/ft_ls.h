@@ -17,6 +17,12 @@
 #include <sys/types.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <pwd.h>
 #include "../libft/libft.h"
+typedef struct		s_ls
+{
+	char		*name;
 
+	struct s_ls	*next;
+}               t_ls;
 #endif

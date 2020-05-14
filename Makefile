@@ -32,7 +32,7 @@ $(SRC_PATH)%.o: $(SRC_PATH)%.c
 clean:
 	@make -C $(LIBFT_PATH)/ clean
 	@/bin/rm -rf $(SRC_O)
-	@echo "\033[31mObject Files \033[1;31m$(OBJS_LIST)\033[1;0m\033[31mRemoved.\033[0m"
+	@echo "\033[+31mObject Files \033[1;31m$(OBJS_LIST)\033[1;0m\033[31mRemoved.\033[0m"
 
 fclean: clean
 	@make -C $(LIBFT_PATH)/ fclean
