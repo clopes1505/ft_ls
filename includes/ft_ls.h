@@ -18,6 +18,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <pwd.h>
+#include <errno.h>
 #include "../libft/libft.h"
 typedef struct		s_ls
 {
