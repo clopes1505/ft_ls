@@ -63,7 +63,7 @@ int		main(int argc, char **argv)
 	}
 	else if(argc == 2 && argv[1][0] == '-')
 		scan_options(argv[1], path, store);
-	else if(argc == 3 && (argv[1][0] == '-' || argv[1][0] == '-') && !(argv[1][0] == '-' && argv[2][0] == '-'))
+	else if(argc == 3 && (argv[1][0] == '-' || argv[2][0] == '-') && !(argv[1][0] == '-' && argv[2][0] == '-'))
 		scan_p_arg(argv[1], argv[2], store);
 	else if(argc == 1)
 	{

@@ -26,10 +26,10 @@ void	scan_options(char *flags, char *path, t_ls *store) // scans selected flags 
 		dash_a(path, store);
 	if(flags[1] == 'r')
 	 	dash_r(path, store);
+	if(flags[1] == 't')
+	    dash_t(path, store);
 	// if(flags[1] == 'l')
 	// 	dash_l(path, store);
-	// if(flags[1] == 't')
-	// 	dash_t(path, store);
 	// if(flags[1] == 'R')
 	// 	dash_R(path, store);
 }
@@ -55,3 +55,26 @@ void	dash_a(char *path, t_ls *store)
 	store = tmp;
 	print_a(store);
 }
+void    dash_r(char *path, t_ls *store)
+{
+	t_ls	*tmp;
+	char	*temp;
+
+	store = ft_ls(store, path);
+	tmp = store;
+	while(store->next->name)
+	{
+		    if(ft_strcmp(store->name, store->next->name) < 0)
+			{
+				temp = store->name;
+				store->name = store->next->name;
+				store->next->name = temp;
+				store = tmp;
+			}
+			else
+				store = store->next;
+	}
+	store = tmp;
+	normie_print(store);
+}
+

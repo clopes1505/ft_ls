@@ -13,6 +13,7 @@
 #ifndef LS_H
 # define LS_H
 
+#include <sys/stat.h>
 #include <dirent.h>
 #include <sys/types.h>
 #include <stdlib.h>
@@ -20,11 +21,11 @@
 #include <pwd.h>
 #include <errno.h>
 #include "../libft/libft.h"
-typedef struct		s_ls
+typedef struct	s_ls
 {
 	char		*name;
 	struct s_ls	*next;
-}               t_ls;
+}				t_ls;
 void	scan_p_arg(char *arg1, char *arg2, t_ls *store);
 void	scan_options(char *flags, char *path, t_ls *store);
 void	dash_a(char *path, t_ls *store);
@@ -32,4 +33,6 @@ void	normie_print(t_ls *store);
 t_ls	*ft_ls(t_ls *store, char *path);
 void	err_handle(DIR *dir, char *path);
 void	print_a(t_ls *store);
+void	dash_r(char *path, t_ls *store);
+void	dash_t(char *path, t_ls *store);
 #endif

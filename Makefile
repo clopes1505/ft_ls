@@ -4,10 +4,10 @@ LIBFT_PATH = ./libft/
 
 SRC_PATH = ./srcs/
 
-SRCS = ft_ls.c \
-	   flag_stuff.c \
-	   prints.c \
-	#   options.c \
+SRCS =	ft_ls.c \
+		flag_stuff.c \
+		prints.c \
+		time.c \
 	#   sorting.c \
 	#   print.c \
 
