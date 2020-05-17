@@ -5,8 +5,8 @@ LIBFT_PATH = ./libft/
 SRC_PATH = ./srcs/
 
 SRCS = ft_ls.c \
-	#   flag_things.c \
-	#   is_flag.c \
+	   flag_stuff.c \
+	   prints.c \
 	#   options.c \
 	#   sorting.c \
 	#   print.c \

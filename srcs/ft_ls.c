@@ -13,22 +13,7 @@
 #include "../includes/ft_ls.h"
 
 
-void	normie_print(t_ls *store) //no flags --LACKS SORTING
-{
-	t_ls *list;
-	list = store;
-	//printf("hi");
-	while (list->next != NULL)
-	{
-		if(list->name[0] == '.')
-			{
-				list = list->next;
-				continue;
-			}
-		ft_putendl(list->name);
-		list = list->next;
-	}
-}
+
 void	err_handle(DIR *dir, char *path) //handles all errors
 {
 	if(path[0] != '-' && dir == NULL)
@@ -59,65 +44,9 @@ t_ls	*ft_ls(t_ls *store, char *path) //stores all the required info (could be op
 		new->next = (t_ls*)malloc(sizeof(t_ls));
 		new = new->next;
 	}
-	new->next = NULL;
+	new = NULL;
 	closedir(dir);
 	return(store);
-}
-void	print_a(t_ls *store)
-{
-	t_ls *list;
-	list = store;
-	ft_putendl("hi");
-	while (list->next)
-	{
-		ft_putendl(list->name);
-		list = list->next;
-	}
-}
-void	dash_a(char *path, t_ls *store)
-{
-	t_ls	*tmp;
-	char	*temp;
-
-	store = ft_ls(store, path);
-	tmp = store;
-	while(tmp->next != NULL)
-	{
-		if(tmp->name == NULL)
-			tmp= tmp->next;
-		else if(ft_strcmp(tmp->name, tmp->next->name) > 0 && tmp->next)
-		{
-			temp = tmp->name;
-			tmp->name = tmp->next->name;
-			tmp->next->name = temp;
-			tmp = store;
-		}
-		else
-			tmp = tmp->next;
-	}
-	//tmp->next = NULL;
-	print_a(store);
-}
-void	scan_options(char *flags, char *path, t_ls *store) // scans selected flags moves required data to the requested function
-{
-	if(flags[1] == 'a')
-		dash_a(path, store);
-	// if(flags[1] == 'r')
-	// 	dash_r(path, store);
-	// if(flags[1] == 'l')
-	// 	dash_l(path, store);
-	// if(flags[1] == 't')
-	// 	dash_t(path, store);
-	// if(flags[1] == 'R')
-	// 	dash_R(path, store);
-}
-
-void	scan_p_arg(char *arg1, char *arg2, t_ls *store) // allows for use of arguements and paths in a single command e.g. : ft_ls libft -a, ft_ls -a libft
-{
-	if(arg1[0] == '-')
-		scan_options(arg1, arg2, store);
-	else
-		scan_options(arg2, arg1, store);
 }
 
 int		main(int argc, char **argv)

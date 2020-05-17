@@ -23,7 +23,13 @@
 typedef struct		s_ls
 {
 	char		*name;
-
 	struct s_ls	*next;
 }               t_ls;
+void	scan_p_arg(char *arg1, char *arg2, t_ls *store);
+void	scan_options(char *flags, char *path, t_ls *store);
+void	dash_a(char *path, t_ls *store);
+void	normie_print(t_ls *store);
+t_ls	*ft_ls(t_ls *store, char *path);
+void	err_handle(DIR *dir, char *path);
+void	print_a(t_ls *store);
 #endif

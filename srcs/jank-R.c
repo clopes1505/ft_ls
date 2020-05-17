@@ -28,6 +28,6 @@ void listdir(const char *name, int indent)
 }
 
 int main(void) {
-	listdir("..", 0);
+	listdir(".", 0);
 	return 0;
 }

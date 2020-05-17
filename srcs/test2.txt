@@ -1,5 +1,0 @@
-./libft:
-./includes:
-./srcs:
-ft_ls
-Makefile
