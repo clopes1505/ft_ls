@@ -12,21 +12,16 @@
 
 #include "../includes/ft_ls.h"
 
-void	delete_stuff(t_ls *store, char * path)
+void	delete_stuff(t_ls *store)
 {
-	free(path);
 	t_ls *current;
 	t_ls *next;
 
 	current = store;
-	while (current)
-	{
-		next = current->next;
-		free(current->name);
-		free(current);
-		current = next;
-	}
-	store = NULL;
+	while (current->next != NULL)
+		current = current->next;
+	next = current->next;
+	free(next);
 }
 void	base_sort(t_ls *store)
 {
@@ -114,6 +109,6 @@ int		main(int argc, char **argv)
 		base_sort(store);
 		normie_print(store);
 	}
-	delete_stuff(store, path);
+	delete_stuff(store);
 	return (0);
 }
