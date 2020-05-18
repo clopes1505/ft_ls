@@ -6,50 +6,86 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 16:21:16 by clopes            #+#    #+#             */
-/*   Updated: 2020/05/18 19:04:55 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/18 19:29:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
-void dash_l(char *path, t_ls *store)
-{
-	store = ft_ls(store, path);
-	t_ls *el;
-    el = store;
-	struct stat info;
-	struct passwd *usr;
-	struct group *grp;
-	char chmod[12];
 
-	base_sort(el);
-	while (el != NULL)
+void	put_id(struct stat buff)
+{
+	struct group	*group;
+	struct passwd	*pwd;
+
+	pwd = getpwuid(buff.st_uid);
+	group = getgrgid(buff.st_gid);
+	ft_putstr(pwd->pw_name);
+    ft_putchar(' ');
+	ft_putstr(group->gr_name);
+    ft_putchar(' ');
+}
+void	put_time(struct stat buff)
+{
+	char					*time;
+
+	time = ctime(&buff.st_mtime);
+    time = time + 4;
+	ft_putstrsize(time, 12);
+}
+
+void    stat_stuff(char *path)
+{
+    struct stat buff;
+    int links;
+
+    links = 0;
+    stat(path, &buff);
+    links = buff.st_nlink;
+    ft_putnbr(links);
+    put_id(buff);
+    put_time(buff);
+}
+void    put_blocks(t_ls *store)
+{
+    t_ls *tmp;
+
+    tmp = store;
+    int i;
+
+	i = 0;
+	ft_putstr("total ");
+	while (tmp->next->name)
 	{
-		lstat(el->name, &info);
-		chmod[0] = (S_ISDIR(info.st_mode)) ? 'd' : '-';
-		//chmod[0] = ((cur.mydirent)->d_type == DT_DIR) ? 'd' : '-';
-		chmod[1] = (S_IRUSR & info.st_mode) ? 'r' : '-';
-		chmod[2] = (S_IWUSR & info.st_mode) ? 'w' : '-';
-		chmod[3] = (S_IXUSR & info.st_mode) ? 'x' : '-';
-		chmod[4] = (S_IRGRP & info.st_mode) ? 'r' : '-';
-		chmod[5] = (S_IWGRP & info.st_mode) ? 'w' : '-';
-		chmod[6] = (S_IXGRP & info.st_mode) ? 'x' : '-';
-		chmod[7] = (S_IROTH & info.st_mode) ? 'r' : '-';
-		chmod[8] = (S_IWOTH & info.st_mode) ? 'w' : '-';
-		chmod[9] = (S_IXOTH & info.st_mode) ? 'x' : '-';
-		chmod[10] = '-';
-		chmod[11] = '\0';
-		ft_putstr(chmod);
-		ft_putnbr(info.st_nlink);
-		ft_putchar('\t');
-		usr = getpwuid(info.st_uid);
-		ft_putstr(usr->pw_name);
-		grp = getgrgid(info.st_gid);
-		ft_putstr(grp->gr_name);
-		ft_putnbr(info.st_size);
-		ft_putchar('\t');
-		ft_putstr(el->name);
-        ft_putchar('\n');
-	//	ft_strdel(&cur.buf);
-		el = el->next;
+		if (tmp->name[0] == '.')
+        {
+            tmp = tmp->next;
+            continue ;
+        }
+        else
+			i += tmp->block;
+        ft_putnbr(tmp->block);
+		tmp = tmp->next;
 	}
+	ft_putnbr(i);
+	ft_putstr("\n");
+}
+void    dash_l(char *path, t_ls *store)
+{
+    // t_ls *head;
+    store = ft_ls(store, path);
+    put_blocks(store);
+    // head = store;
+    while(store->next->name)
+    {
+        if(store->name[0] == '.')
+        {
+            store = store->next;
+            continue ;
+        }
+        ft_putendl(store->name);
+        stat_stuff(store->name);
+        ft_putchar('\n');
+        store = store->next;
+    }
+} 
 }
