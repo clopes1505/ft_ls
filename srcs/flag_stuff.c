@@ -28,8 +28,8 @@ void	scan_options(char *flags, char *path, t_ls *store) // scans selected flags 
 	 	dash_r(path, store);
 	if(flags[1] == 't')
 	    dash_t(path, store);
-	// if(flags[1] == 'l')
-	// 	dash_l(path, store);
+	if(flags[1] == 'l')
+		dash_l(path, store);
 	// if(flags[1] == 'R')
 	// 	dash_R(path, store);
 }

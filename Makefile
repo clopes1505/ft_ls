@@ -8,7 +8,7 @@ SRCS =	ft_ls.c \
 		flag_stuff.c \
 		prints.c \
 		time.c \
-	#   sorting.c \
+		dash-l.c \
 	#   print.c \
 
 FLAGS = -Wall -Werror -Wextra

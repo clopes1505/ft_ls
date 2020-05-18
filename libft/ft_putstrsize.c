@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prints.c                                            :+:      :+:    :+:   */
+/*   ft_putstrsize.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clopes <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/22 16:21:16 by clopes            #+#    #+#             */
-/*   Updated: 2019/08/22 16:21:18 by clopes           ###   ########.fr       */
+/*   Created: 2019/06/05 09:24:01 by clopes            #+#    #+#             */
+/*   Updated: 2019/06/24 11:36:55 by clopes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_ls.h"
+#include "libft.h"
 
-void	normie_print(t_ls *store) //no flags --LACKS SORTING
+void	ft_putstrsize(char const *s, int size)
 {
-	t_ls *list;
-	list = store;
-	while (list->next != NULL)
+	int k;
+
+	k = 0;
+	if (s != NULL)
 	{
-		if(list->name[0] == '.')
-			{
-				list = list->next;
-				continue;
-			}
-		ft_putendl(list->name);
-		list = list->next;
-	}
-}
-void	print_a(t_ls *store)
-{
-	t_ls *list;
-	list = store;
-	while (list->next)
-	{
-		ft_putendl(list->name);
-		list = list->next;
+		while (s[k] && k < size)
+		{
+			ft_putchar(s[k]);
+			k++;
+		}
 	}
 }

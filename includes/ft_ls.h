@@ -20,12 +20,16 @@
 #include <stdio.h>
 #include <pwd.h>
 #include <errno.h>
+#include <grp.h>
+#include <uuid/uuid.h>
 #include "../libft/libft.h"
 typedef struct	s_ls
 {
 	char		*name;
+	int			block;
 	struct s_ls	*next;
 }				t_ls;
+void    stat_stuff(char *path);
 void	scan_p_arg(char *arg1, char *arg2, t_ls *store);
 void	scan_options(char *flags, char *path, t_ls *store);
 void	dash_a(char *path, t_ls *store);
@@ -35,4 +39,8 @@ void	err_handle(DIR *dir, char *path);
 void	print_a(t_ls *store);
 void	dash_r(char *path, t_ls *store);
 void	dash_t(char *path, t_ls *store);
+void	dash_l(char *path, t_ls *store);
+void	put_id(struct stat buff);
+void	put_time(struct stat buff);
+void    put_blocks(t_ls *store);
 #endif

@@ -33,13 +33,16 @@ t_ls	*ft_ls(t_ls *store, char *path) //stores all the required info (could be op
 	DIR		*dir;
 	struct dirent *sd;
 	t_ls *new;
-	
+	struct stat	ss;
+
+	lstat(path, &ss);
 	new = (t_ls*)malloc(sizeof(t_ls));
 	store = new;
 	dir = opendir(path);
 	err_handle(dir, path);
 	while ((sd = readdir(dir)))
 	{
+		new->block = ss.st_blocks;
 		new->name = sd->d_name;
 		new->next = (t_ls*)malloc(sizeof(t_ls));
 		new = new->next;
