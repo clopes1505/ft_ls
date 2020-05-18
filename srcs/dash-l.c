@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 16:21:16 by clopes            #+#    #+#             */
-/*   Updated: 2020/05/18 19:29:35 by marvin           ###   ########.fr       */
+/*   Updated: 2020/05/18 19:37:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,21 +71,20 @@ void    put_blocks(t_ls *store)
 }
 void    dash_l(char *path, t_ls *store)
 {
-    // t_ls *head;
+    t_ls *head;
     store = ft_ls(store, path);
     put_blocks(store);
-    // head = store;
-    while(store->next->name)
+    head = store;
+    while(head->next->name)
     {
-        if(store->name[0] == '.')
+        if(head->name[0] == '.')
         {
-            store = store->next;
+            head = head->next;
             continue ;
         }
-        ft_putendl(store->name);
-        stat_stuff(store->name);
+        ft_putendl(head->name);
+        stat_stuff(head->name);
         ft_putchar('\n');
-        store = store->next;
+        head = head->next;
     }
-} 
 }
