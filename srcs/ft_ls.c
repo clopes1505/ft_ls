@@ -98,6 +98,7 @@ int		main(int argc, char **argv)
 		store = ft_ls(store, path);
 		base_sort(store);
 		normie_print(store);
+		delete_stuff(store);
 	}
 	else if(argc == 2 && argv[1][0] == '-')
 		scan_options(argv[1], path, store);
@@ -108,7 +109,7 @@ int		main(int argc, char **argv)
 		store = ft_ls(store, path);
 		base_sort(store);
 		normie_print(store);
+		delete_stuff(store);
 	}
-	delete_stuff(store);
 	return (0);
 }
