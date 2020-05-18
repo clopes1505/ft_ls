@@ -69,7 +69,7 @@ void	put_blocks(t_ls *store)
 	tmp = store;
 	i = 0;
 	ft_putstr("total ");
-	while (tmp->next->name)
+	while (tmp->next)
 	{
 		if (tmp->name[0] == '.')
 		{

@@ -36,7 +36,7 @@ void	base_sort(t_ls *store)
 void	err_handle(DIR *dir, char *path) //handles all errors
 {
 	char *error;
-	
+
 	if(path[0] != '-' && dir == NULL)
 	{
 		error = ft_strjoin("ls: cannot access ", path);
@@ -57,15 +57,15 @@ t_ls	*ft_ls(t_ls *store, char *path) //stores all the required info (could be op
 	t_ls *new;
 	struct stat	ss;
 
-	lstat(path, &ss);
 	new = (t_ls*)malloc(sizeof(t_ls));
 	store = new;
 	dir = opendir(path);
 	err_handle(dir, path);
 	while ((sd = readdir(dir)))
 	{
-		new->block = ss.st_blocks;
 		new->name = sd->d_name;
+		new->block = ss.st_blocks;
+		lstat(new->name, &ss);
 		new->next = (t_ls*)malloc(sizeof(t_ls));
 		new = new->next;
 	}
