@@ -20,15 +20,15 @@ void	base_sort(t_ls *store)
 	tmp = store;
 	while(store->next->name)
 	{
-		    if(ft_strcmp(store->name, store->next->name) > 0)
-			{
-				temp = store->name;
-				store->name = store->next->name;
-				store->next->name = temp;
-				store = tmp;
-			}
-			else
-				store = store->next;
+		if(ft_strcmp(store->name, store->next->name) > 0)
+		{
+			temp = store->name;
+			store->name = store->next->name;
+			store->next->name = temp;
+			store = tmp;
+		}
+		else
+			store = store->next;
 	}
 	store = tmp;
 }
@@ -36,6 +36,7 @@ void	base_sort(t_ls *store)
 void	err_handle(DIR *dir, char *path) //handles all errors
 {
 	char *error;
+	
 	if(path[0] != '-' && dir == NULL)
 	{
 		error = ft_strjoin("ls: cannot access ", path);
@@ -77,6 +78,7 @@ int		main(int argc, char **argv)
 {
 	t_ls *store;
 	char *path;
+
 	path = ".";
 	store  = NULL;
 	if(argc == 2 && argv[1][0] != '-')
@@ -98,24 +100,3 @@ int		main(int argc, char **argv)
 	}
 	return (0);
 }
-
-// void	flags(char *flags) // tells program what function to do dependant on the flag
-// {
-	
-// }
-// void	dash_a() //displays every item including hidden .files
-// {
-
-// }
-// void	dash_r() //reverse order
-// {
-
-// }
-// void	dash_t() //sort by modification time, newest first
-// {
-
-// }
-// void	dash_l() //long list version
-// {
-
-// }

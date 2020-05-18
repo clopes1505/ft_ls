@@ -27,7 +27,7 @@ void	scan_options(char *flags, char *path, t_ls *store) // scans selected flags 
 	if(flags[1] == 'r')
 	 	dash_r(path, store);
 	if(flags[1] == 't')
-	    dash_t(path, store);
+		dash_t(path, store);
 	if(flags[1] == 'l')
 		dash_l(path, store);
 	// if(flags[1] == 'R')
@@ -42,20 +42,20 @@ void	dash_a(char *path, t_ls *store)
 	tmp = store;
 	while(store->next->name)
 	{
-		    if(ft_strcmp(store->name, store->next->name) > 0)
-			{
-				temp = store->name;
-				store->name = store->next->name;
-				store->next->name = temp;
-				store = tmp;
-			}
-			else
-				store = store->next;
+		if(ft_strcmp(store->name, store->next->name) > 0)
+		{
+			temp = store->name;
+			store->name = store->next->name;
+			store->next->name = temp;
+			store = tmp;
+		}
+		else
+			store = store->next;
 	}
 	store = tmp;
 	print_a(store);
 }
-void    dash_r(char *path, t_ls *store)
+void	dash_r(char *path, t_ls *store)
 {
 	t_ls	*tmp;
 	char	*temp;
@@ -64,15 +64,15 @@ void    dash_r(char *path, t_ls *store)
 	tmp = store;
 	while(store->next->name)
 	{
-		    if(ft_strcmp(store->name, store->next->name) < 0)
-			{
-				temp = store->name;
-				store->name = store->next->name;
-				store->next->name = temp;
-				store = tmp;
-			}
-			else
-				store = store->next;
+		if(ft_strcmp(store->name, store->next->name) < 0)
+		{
+			temp = store->name;
+			store->name = store->next->name;
+			store->next->name = temp;
+			store = tmp;
+		}
+		else
+			store = store->next;
 	}
 	store = tmp;
 	normie_print(store);

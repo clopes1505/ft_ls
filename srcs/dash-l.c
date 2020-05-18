@@ -24,7 +24,7 @@ void	putperms(struct stat fileperms)
 	fileperms.st_mode & S_IROTH ? ft_putchar('r') : ft_putchar('-');
 	fileperms.st_mode & S_IWOTH ? ft_putchar('w') : ft_putchar('-');
 	fileperms.st_mode & S_IXOTH ? ft_putchar('x') : ft_putchar('-');
-    ft_putchar(' ');
+	ft_putchar(' ');
 }
 
 void	put_id(struct stat buff)
@@ -35,72 +35,72 @@ void	put_id(struct stat buff)
 	pwd = getpwuid(buff.st_uid);
 	group = getgrgid(buff.st_gid);
 	ft_putstr(pwd->pw_name);
-    ft_putchar(' ');
+	ft_putchar(' ');
 	ft_putstr(group->gr_name);
-    ft_putchar(' ');
+	ft_putchar(' ');
 }
 void	put_time(struct stat buff)
 {
-	char					*time;
+	char	*time;
 
 	time = ctime(&buff.st_mtime);
-    time = time + 4;
+	time = time + 4;
 	ft_putstrsize(time, 12);
 }
 
-void    stat_stuff(char *path)
+void	stat_stuff(char *path)
 {
-    struct stat buff;
+	struct stat buff;
 
-    stat(path, &buff);
-    putperms(buff);
-    ft_putnbr(buff.st_nlink);
-    ft_putchar(' ');
-    put_id(buff);
-    ft_putnbr(buff.st_size);
-    ft_putchar(' ');
-    put_time(buff);
+	lstat(path, &buff);
+	putperms(buff);
+	ft_putnbr(buff.st_nlink);
+	ft_putchar('\t');
+	put_id(buff);
+	ft_putnbr(buff.st_size);
+	ft_putchar('\t');
+	put_time(buff);
 }
-void    put_blocks(t_ls *store)
+void	put_blocks(t_ls *store)
 {
-    t_ls *tmp;
+	t_ls *tmp;
+	int i;
 
-    tmp = store;
-    int i;
-
+	tmp = store;
 	i = 0;
 	ft_putstr("total ");
 	while (tmp->next->name)
 	{
 		if (tmp->name[0] == '.')
-        {
-            tmp = tmp->next;
-            continue ;
-        }
-        else
+		{
+			tmp = tmp->next;
+			continue ;
+		}
+		else
 			i += tmp->block;
 		tmp = tmp->next;
 	}
 	ft_putnbr(i);
 	ft_putstr("\n");
 }
-void    dash_l(char *path, t_ls *store)
+void	dash_l(char *path, t_ls *store)
 {
-    t_ls *head;
-    store = ft_ls(store, path);
-    base_sort(store);
-    put_blocks(store);
-    head = store;
-    while(head->next->name)
-    {
-        if(head->name[0] == '.')
-        {
-            head = head->next;
-            continue ;
-        }
-        ft_putendl(head->name);
-        stat_stuff(head->name);
-        ft_putchar('\n');
-        head = head->next;
-    }
+	t_ls *head;
+
+	store = ft_ls(store, path);
+	base_sort(store);
+	put_blocks(store);
+	head = store;
+	while(head->next)
+	{
+		if(head->name[0] == '.')
+		{
+			head = head->next;
+			continue ;
+		}
+		ft_putstr(head->name);
+		stat_stuff(head->name);
+		ft_putchar('\n');
+		head = head->next;
+	}
 }

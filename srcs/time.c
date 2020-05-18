@@ -21,7 +21,7 @@ int		sort_time(char *file, char *file2)
 	stat(file2, &t2);
 	return (t1.st_mtime < t2.st_mtime);
 }
-void    dash_t(char *path, t_ls *store)
+void	dash_t(char *path, t_ls *store)
 {
 	t_ls	*tmp;
 	char	*temp;
@@ -30,15 +30,15 @@ void    dash_t(char *path, t_ls *store)
 	tmp = store;
 	while(store->next->name)
 	{
-		    if(sort_time(store->name, store->next->name))
-			{
-				temp = store->name;
-				store->name = store->next->name;
-				store->next->name = temp;
-				store = tmp;
-			}
-			else
-				store = store->next;
+		if(sort_time(store->name, store->next->name))
+		{
+			temp = store->name;
+			store->name = store->next->name;
+			store->next->name = temp;
+			store = tmp;
+		}
+		else
+			store = store->next;
 	}
 	store = tmp;
 	normie_print(store);

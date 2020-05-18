@@ -15,6 +15,7 @@
 void	normie_print(t_ls *store) //no flags --LACKS SORTING
 {
 	t_ls *list;
+
 	list = store;
 	while (list->next != NULL)
 	{
@@ -30,6 +31,7 @@ void	normie_print(t_ls *store) //no flags --LACKS SORTING
 void	print_a(t_ls *store)
 {
 	t_ls *list;
+	
 	list = store;
 	while (list->next)
 	{
