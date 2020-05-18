@@ -12,6 +12,21 @@
 
 #include "../includes/ft_ls.h"
 
+void	putperms(struct stat fileperms)
+{
+	S_ISDIR(fileperms.st_mode) ? ft_putchar('d') : ft_putchar('-');
+	fileperms.st_mode & S_IRUSR ? ft_putchar('r') : ft_putchar('-');
+	fileperms.st_mode & S_IWUSR ? ft_putchar('w') : ft_putchar('-');
+	fileperms.st_mode & S_IXUSR ? ft_putchar('x') : ft_putchar('-');
+	fileperms.st_mode & S_IRGRP ? ft_putchar('r') : ft_putchar('-');
+	fileperms.st_mode & S_IWGRP ? ft_putchar('w') : ft_putchar('-');
+	fileperms.st_mode & S_IXGRP ? ft_putchar('x') : ft_putchar('-');
+	fileperms.st_mode & S_IROTH ? ft_putchar('r') : ft_putchar('-');
+	fileperms.st_mode & S_IWOTH ? ft_putchar('w') : ft_putchar('-');
+	fileperms.st_mode & S_IXOTH ? ft_putchar('x') : ft_putchar('-');
+    ft_putchar(' ');
+}
+
 void	put_id(struct stat buff)
 {
 	struct group	*group;
@@ -36,13 +51,14 @@ void	put_time(struct stat buff)
 void    stat_stuff(char *path)
 {
     struct stat buff;
-    int links;
 
-    links = 0;
     stat(path, &buff);
-    links = buff.st_nlink;
-    ft_putnbr(links);
+    putperms(buff);
+    ft_putnbr(buff.st_nlink);
+    ft_putchar(' ');
     put_id(buff);
+    ft_putnbr(buff.st_size);
+    ft_putchar(' ');
     put_time(buff);
 }
 void    put_blocks(t_ls *store)
@@ -63,7 +79,6 @@ void    put_blocks(t_ls *store)
         }
         else
 			i += tmp->block;
-        ft_putnbr(tmp->block);
 		tmp = tmp->next;
 	}
 	ft_putnbr(i);
@@ -73,6 +88,7 @@ void    dash_l(char *path, t_ls *store)
 {
     t_ls *head;
     store = ft_ls(store, path);
+    base_sort(store);
     put_blocks(store);
     head = store;
     while(head->next->name)
