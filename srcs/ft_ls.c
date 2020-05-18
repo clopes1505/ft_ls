@@ -12,16 +12,37 @@
 
 #include "../includes/ft_ls.h"
 
+void	base_sort(t_ls *store)
+{
+	t_ls	*tmp;
+	char	*temp;
 
+	tmp = store;
+	while(store->next->name)
+	{
+		    if(ft_strcmp(store->name, store->next->name) > 0)
+			{
+				temp = store->name;
+				store->name = store->next->name;
+				store->next->name = temp;
+				store = tmp;
+			}
+			else
+				store = store->next;
+	}
+	store = tmp;
+}
 
 void	err_handle(DIR *dir, char *path) //handles all errors
 {
+	char *error;
 	if(path[0] != '-' && dir == NULL)
 	{
-		perror(ft_strjoin("ls: cannot access ", path));
+		error = ft_strjoin("ls: cannot access ", path);
+		perror(error);
 		exit(1);
 	}	
-	else if(path[0] == '-' && dir == NULL)
+	else if(path[0] == '-' && (path[1] != 'a' && path[1] != 'r' && path[1] != 't' && path[1] != 'l' && path[1] != 'R'))
 	{
 		perror(ft_strjoin("ls: invalid option -- ", path));
 		exit(1);
@@ -62,6 +83,7 @@ int		main(int argc, char **argv)
 	{
 		path = ft_strdup(argv[1]);
 		store = ft_ls(store, path);
+		base_sort(store);
 		normie_print(store);
 	}
 	else if(argc == 2 && argv[1][0] == '-')
@@ -71,6 +93,7 @@ int		main(int argc, char **argv)
 	else if(argc == 1)
 	{
 		store = ft_ls(store, path);
+		base_sort(store);
 		normie_print(store);
 	}
 	return (0);

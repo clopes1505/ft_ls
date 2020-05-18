@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clopes <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 16:15:07 by clopes            #+#    #+#             */
-/*   Updated: 2019/08/22 16:17:03 by clopes           ###   ########.fr       */
+/*   Updated: 2020/05/18 18:51:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <errno.h>
 #include <grp.h>
 #include <uuid/uuid.h>
+#include <time.h>
 #include "../libft/libft.h"
 typedef struct	s_ls
 {
@@ -29,7 +30,7 @@ typedef struct	s_ls
 	int			block;
 	struct s_ls	*next;
 }				t_ls;
-void    stat_stuff(char *path);
+// void    stat_stuff(char *path);
 void	scan_p_arg(char *arg1, char *arg2, t_ls *store);
 void	scan_options(char *flags, char *path, t_ls *store);
 void	dash_a(char *path, t_ls *store);
@@ -40,7 +41,8 @@ void	print_a(t_ls *store);
 void	dash_r(char *path, t_ls *store);
 void	dash_t(char *path, t_ls *store);
 void	dash_l(char *path, t_ls *store);
-void	put_id(struct stat buff);
-void	put_time(struct stat buff);
-void    put_blocks(t_ls *store);
+// void	put_id(struct stat buff);
+// void	put_time(struct stat buff);
+// void    get_blocks(t_ls *store);
+void	base_sort(t_ls *store);
 #endif
