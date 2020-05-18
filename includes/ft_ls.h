@@ -46,4 +46,5 @@ void	put_time(struct stat buff);
 void    get_blocks(t_ls *store);
 void	base_sort(t_ls *store);
 void	putperms(struct stat fileperms);
+void	delete_stuff(t_ls *store);
 #endif

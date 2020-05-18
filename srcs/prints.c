@@ -12,7 +12,7 @@
 
 #include "../includes/ft_ls.h"
 
-void	normie_print(t_ls *store) //no flags --LACKS SORTING
+void	normie_print(t_ls *store)
 {
 	t_ls *list;
 

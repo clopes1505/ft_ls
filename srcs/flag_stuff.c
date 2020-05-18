@@ -12,7 +12,7 @@
 
 #include "../includes/ft_ls.h"
 
-void	scan_p_arg(char *arg1, char *arg2, t_ls *store) // allows for use of arguements and paths in a single command e.g. : ft_ls libft -a, ft_ls -a libft
+void	scan_p_arg(char *arg1, char *arg2, t_ls *store)
 {
 	if(arg1[0] == '-')
 		scan_options(arg1, arg2, store);
@@ -20,7 +20,7 @@ void	scan_p_arg(char *arg1, char *arg2, t_ls *store) // allows for use of arguem
 		scan_options(arg2, arg1, store);
 }
 
-void	scan_options(char *flags, char *path, t_ls *store) // scans selected flags moves required data to the requested function
+void	scan_options(char *flags, char *path, t_ls *store)
 {
 	if(flags[1] == 'a')
 		dash_a(path, store);

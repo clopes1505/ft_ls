@@ -44,7 +44,7 @@ void	base_sort(t_ls *store)
 	store = tmp;
 }
 
-void	err_handle(DIR *dir, char *path) //handles all errors
+void	err_handle(DIR *dir, char *path)
 {
 	char *error;
 
@@ -61,7 +61,7 @@ void	err_handle(DIR *dir, char *path) //handles all errors
 	}
 }
 
-t_ls	*ft_ls(t_ls *store, char *path) //stores all the required info (could be optimized with more time in the future)
+t_ls	*ft_ls(t_ls *store, char *path)
 {
 	DIR		*dir;
 	struct dirent *sd;
