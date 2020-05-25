@@ -48,6 +48,8 @@ void	base_sort(t_ls *store);
 void	putperms(struct stat fileperms);
 void	delete_stuff(t_ls *store);
 void	valid_flag(char *path);
-void dash_R(char *str, int indent);
+void	dash_R(char *str, int indent);
+void	sym_link(char *path);
+void	put_blocks(t_ls *store);
 
 #endif

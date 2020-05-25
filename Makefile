@@ -11,6 +11,7 @@ SRCS =	ft_ls.c \
 		dash-l.c \
 		error.c \
 		dash-R.c \
+		extra-l.c \
 
 FLAGS = -Wall -Werror -Wextra
 

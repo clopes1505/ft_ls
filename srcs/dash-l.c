@@ -60,29 +60,10 @@ void	stat_stuff(char *path)
 	ft_putnbr(buff.st_size);
 	ft_putchar('\t');
 	put_time(buff);
+	if ((S_ISLNK(buff.st_mode)))
+		sym_link(path);
 }
-void	put_blocks(t_ls *store)
-{
-	t_ls *tmp;
-	int i;
 
-	tmp = store;
-	i = 0;
-	ft_putstr("total ");
-	while (tmp->next)
-	{
-		if (tmp->name[0] == '.')
-		{
-			tmp = tmp->next;
-			continue ;
-		}
-		else
-			i += tmp->block;
-		tmp = tmp->next;
-	}
-	ft_putnbr(i);
-	ft_putstr("\n");
-}
 void	dash_l(char *path, t_ls *store, char *flags)
 {
 	t_ls *head;
