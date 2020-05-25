@@ -83,11 +83,11 @@ void	put_blocks(t_ls *store)
 	ft_putnbr(i);
 	ft_putstr("\n");
 }
-void	dash_l(char *path, t_ls *store)
+void	dash_l(char *path, t_ls *store, char *flags)
 {
 	t_ls *head;
 
-	store = ft_ls(store, path);
+	store = ft_ls(store, path, flags);
 	base_sort(store);
 	put_blocks(store);
 	head = store;

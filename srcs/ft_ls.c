@@ -44,24 +44,7 @@ void	base_sort(t_ls *store)
 	store = tmp;
 }
 
-void	err_handle(DIR *dir, char *path)
-{
-	char *error;
-
-	if(path[0] != '-' && dir == NULL)
-	{
-		error = ft_strjoin("ls: cannot access ", path);
-		perror(error);
-		exit(1);
-	}	
-	else if(path[0] == '-' && (path[1] != 'a' && path[1] != 'r' && path[1] != 't' && path[1] != 'l' && path[1] != 'R'))
-	{
-		perror(ft_strjoin("ls: invalid option -- ", path));
-		exit(1);
-	}
-}
-
-t_ls	*ft_ls(t_ls *store, char *path)
+t_ls	*ft_ls(t_ls *store, char *path, char *flags)
 {
 	DIR		*dir;
 	struct dirent *sd;
@@ -71,7 +54,7 @@ t_ls	*ft_ls(t_ls *store, char *path)
 	new = (t_ls*)malloc(sizeof(t_ls));
 	store = new;
 	dir = opendir(path);
-	err_handle(dir, path);
+	err_handle(dir, path, flags);
 	while ((sd = readdir(dir)))
 	{
 		new->name = sd->d_name;
@@ -95,7 +78,7 @@ int		main(int argc, char **argv)
 	if(argc == 2 && argv[1][0] != '-')
 	{
 		path = ft_strdup(argv[1]);
-		store = ft_ls(store, path);
+		store = ft_ls(store, path, argv[1]);
 		base_sort(store);
 		normie_print(store);
 		delete_stuff(store);
@@ -106,7 +89,7 @@ int		main(int argc, char **argv)
 		scan_p_arg(argv[1], argv[2], store);
 	else if(argc == 1)
 	{
-		store = ft_ls(store, path);
+		store = ft_ls(store, path, argv[1]);
 		base_sort(store);
 		normie_print(store);
 		delete_stuff(store);

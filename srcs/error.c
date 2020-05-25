@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clopes <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,34 +12,42 @@
 
 #include "../includes/ft_ls.h"
 
-int		sort_time(char *file, char *file2)
+void	valid_flag(char *flags)
 {
-	struct stat	t1;
-	struct stat t2;
+	int k;
 
-	stat(file, &t1);
-	stat(file2, &t2);
-	return (t1.st_mtime < t2.st_mtime);
-}
-void	dash_t(char *path, t_ls *store, char *flags)
-{
-	t_ls	*tmp;
-	char	*temp;
-
-	store = ft_ls(store, path, flags);
-	tmp = store;
-	while(store->next->name)
+	k = 0;
+	while(flags[k])
 	{
-		if(sort_time(store->name, store->next->name))
+		if(flags[k] == '-')
+			k++;
+		if(!ft_strchr("arRtl", flags[k]))
 		{
-			temp = store->name;
-			store->name = store->next->name;
-			store->next->name = temp;
-			store = tmp;
+			ft_putstr("ls: invalid option -- '");
+			ft_putchar(flags[k]);
+			ft_putstr("'\n");
+			exit(1);
 		}
-		else
-			store = store->next;
+		k++;
 	}
-	store = tmp;
-	normie_print(store);
+
+}
+void	err_handle(DIR *dir, char *path, char *flags)
+{
+	char *error;
+
+	if(path[0] != '-' && dir == NULL)
+	{
+		error = ft_strjoin("ls: cannot access ", path);
+		perror(error);
+		free(error);
+		exit(1);
+	}	
+	else if(path[0] == '-' && (path[1] != 'a' && path[1] != 'r' && path[1] != 't' && path[1] != 'l' && path[1] != 'R'))
+	{
+		perror(ft_strjoin("ls: invalid option -- ", path));
+		exit(1);
+	}
+	else if (flags[0] == '-')
+		valid_flag(flags);
 }

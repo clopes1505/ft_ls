@@ -9,6 +9,8 @@ SRCS =	ft_ls.c \
 		prints.c \
 		time.c \
 		dash-l.c \
+		error.c \
+		dash-R.c \
 
 FLAGS = -Wall -Werror -Wextra
 

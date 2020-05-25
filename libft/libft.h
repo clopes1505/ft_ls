@@ -64,4 +64,6 @@ void	ft_putstr_fd(char const *s, int fd);
 void	ft_putendl_fd(char const *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putstrsize(char const *s, int size);
+char	*ft_strslashjoin(char *str1, char *str2);
+void	ft_indentprint(int indent);
 #endif

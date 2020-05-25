@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   dash-R.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clopes <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,34 +12,26 @@
 
 #include "../includes/ft_ls.h"
 
-int		sort_time(char *file, char *file2)
+void dash_R(char *str, int indent)
 {
-	struct stat	t1;
-	struct stat t2;
+	DIR *dir;
+	struct dirent *store;
+	char *path;
 
-	stat(file, &t1);
-	stat(file2, &t2);
-	return (t1.st_mtime < t2.st_mtime);
-}
-void	dash_t(char *path, t_ls *store, char *flags)
-{
-	t_ls	*tmp;
-	char	*temp;
-
-	store = ft_ls(store, path, flags);
-	tmp = store;
-	while(store->next->name)
-	{
-		if(sort_time(store->name, store->next->name))
-		{
-			temp = store->name;
-			store->name = store->next->name;
-			store->next->name = temp;
-			store = tmp;
+	if (!(dir = opendir(str)))
+		return;
+	while ((store = readdir(dir)) != NULL) {
+		if (store->d_type == DT_DIR) {
+			if (store->d_name[0] == '.')
+				continue;
+			path = ft_strslashjoin(str, store->d_name);
+			ft_indentprint(indent);
+			ft_putendl(ft_strjoin("./",store->d_name));
+			dash_R(path, indent + 2);
+		} else {
+		ft_indentprint(indent);
+		ft_putendl(store->d_name);
 		}
-		else
-			store = store->next;
 	}
-	store = tmp;
-	normie_print(store);
+	closedir(dir);
 }

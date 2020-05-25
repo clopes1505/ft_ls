@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   ft_indentprint.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clopes <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,36 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_ls.h"
+#include "libft.h"
 
-int		sort_time(char *file, char *file2)
+void	ft_indentprint(int indent)
 {
-	struct stat	t1;
-	struct stat t2;
+	int i;
 
-	stat(file, &t1);
-	stat(file2, &t2);
-	return (t1.st_mtime < t2.st_mtime);
-}
-void	dash_t(char *path, t_ls *store, char *flags)
-{
-	t_ls	*tmp;
-	char	*temp;
-
-	store = ft_ls(store, path, flags);
-	tmp = store;
-	while(store->next->name)
+	i = 0;
+	while(i < indent)
 	{
-		if(sort_time(store->name, store->next->name))
-		{
-			temp = store->name;
-			store->name = store->next->name;
-			store->next->name = temp;
-			store = tmp;
-		}
-		else
-			store = store->next;
+		ft_putchar(' ');
+		i++;
 	}
-	store = tmp;
-	normie_print(store);
 }

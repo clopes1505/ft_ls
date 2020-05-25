@@ -33,18 +33,21 @@ typedef struct	s_ls
 void    stat_stuff(char *path);
 void	scan_p_arg(char *arg1, char *arg2, t_ls *store);
 void	scan_options(char *flags, char *path, t_ls *store);
-void	dash_a(char *path, t_ls *store);
+void	dash_a(char *path, t_ls *store, char *flags);
 void	normie_print(t_ls *store);
-t_ls	*ft_ls(t_ls *store, char *path);
-void	err_handle(DIR *dir, char *path);
+t_ls	*ft_ls(t_ls *store, char *path, char *flags);
+void	err_handle(DIR *dir, char *path, char *flags);
 void	print_a(t_ls *store);
-void	dash_r(char *path, t_ls *store);
-void	dash_t(char *path, t_ls *store);
-void	dash_l(char *path, t_ls *store);
+void	dash_r(char *path, t_ls *store, char *flags);
+void	dash_t(char *path, t_ls *store, char *flags);
+void	dash_l(char *path, t_ls *store, char *flags);
 void	put_id(struct stat buff);
 void	put_time(struct stat buff);
 void    get_blocks(t_ls *store);
 void	base_sort(t_ls *store);
 void	putperms(struct stat fileperms);
 void	delete_stuff(t_ls *store);
+void	valid_flag(char *path);
+void dash_R(char *str, int indent);
+
 #endif
