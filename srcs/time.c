@@ -19,6 +19,8 @@ int		sort_time(char *file, char *file2)
 
 	stat(file, &t1);
 	stat(file2, &t2);
+	if(t1.st_mtime == t2.st_mtime)
+		return(t1.st_mtim.tv_nsec < t2.st_mtim.tv_nsec);
 	return (t1.st_mtime < t2.st_mtime);
 }
 void	dash_t(char *path, t_ls *store, char *flags)
