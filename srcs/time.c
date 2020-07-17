@@ -19,29 +19,42 @@ int		sort_time(char *file, char *file2)
 
 	stat(file, &t1);
 	stat(file2, &t2);
-	if(t1.st_mtime == t2.st_mtime)
-		return(t1.st_mtim.tv_nsec < t2.st_mtim.tv_nsec);
-	return (t1.st_mtime < t2.st_mtime);
+	if(t1.st_ctime == t2.st_ctime)
+		return(t1.st_ctimespec.tv_nsec < t2.st_ctimespec.tv_nsec);
+	return (t1.st_ctime < t2.st_ctime);
 }
-void	dash_t(char *path, t_ls *store, char *flags)
+void	dash_t(t_ls *store, char *flags)
 {
 	t_ls	*tmp;
 	char	*temp;
 
-	store = ft_ls(store, path, flags);
+	//store = ft_ls(store, path, flags);
 	tmp = store;
-	while(store->next->name)
+	while(store->next)
 	{
-		if(sort_time(store->name, store->next->name))
+		if(strchr(flags, 'r'))
 		{
-			temp = store->name;
-			store->name = store->next->name;
-			store->next->name = temp;
-			store = tmp;
+			if(sort_time(store->next->name, store->name))
+			{
+				temp = store->next->name;
+				store->next->name = store->name;
+				store->name = temp;
+				store = tmp;
+			}
+			else
+				store = store->next;
 		}
-		else
-			store = store->next;
+		else {
+			if(sort_time(store->name, store->next->name))
+			{
+				temp = store->name;
+				store->name = store->next->name;
+				store->next->name = temp;
+				store = tmp;
+			}
+			else
+				store = store->next;
+		}
 	}
 	store = tmp;
-	normie_print(store);
 }

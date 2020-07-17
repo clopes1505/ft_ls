@@ -22,25 +22,43 @@ void	scan_p_arg(char *arg1, char *arg2, t_ls *store)
 
 void	scan_options(char *flags, char *path, t_ls *store)
 {
-	if(flags[1] == 'a')
-		dash_a(path, store, flags);
-	if(flags[1] == 'r')
-	 	dash_r(path, store, flags);
-	if(flags[1] == 't')
-		dash_t(path, store, flags);
-	if(flags[1] == 'l')
-		dash_l(path, store, flags);
-	if(flags[1] == 'R')
+	store = ft_ls(store, path, flags);
+	valid_flag(flags);
+	if (ft_strchr(flags, 'R'))
 		dash_R(path, 0);
-	else
-		valid_flag(flags);
+	else 
+	{
+		if (ft_strchr(flags, 'a'))
+		{
+			dash_a(store);
+			if (ft_strchr(flags, 'r'))
+				dash_r(store);
+			if (ft_strchr(flags, 't'))
+				dash_t(store, flags);
+			if (ft_strchr(flags, 'l'))
+				dash_l(store, flags);
+			else
+				print_a(store);
+		}
+		else if (!(ft_strchr(flags, 'a')))
+		{
+			dash_a(store);
+			if (ft_strchr(flags, 'r'))
+				dash_r(store);
+			if (ft_strchr(flags, 't'))
+				dash_t(store, flags);
+			if (ft_strchr(flags, 'l'))
+				dash_l(store, flags);
+			else
+				normie_print(store);
+		}
+	}
 }
-void	dash_a(char *path, t_ls *store, char *flags)
+void	dash_a(t_ls *store)
 {
 	t_ls	*tmp;
 	char	*temp;
 
-	store = ft_ls(store, path, flags);
 	tmp = store;
 	while(store->next->name)
 	{
@@ -55,14 +73,12 @@ void	dash_a(char *path, t_ls *store, char *flags)
 			store = store->next;
 	}
 	store = tmp;
-	print_a(store);
 }
-void	dash_r(char *path, t_ls *store, char *flags)
+void	dash_r(t_ls *store)
 {
 	t_ls	*tmp;
 	char	*temp;
 
-	store = ft_ls(store, path, flags);
 	tmp = store;
 	while(store->next->name)
 	{
@@ -77,6 +93,5 @@ void	dash_r(char *path, t_ls *store, char *flags)
 			store = store->next;
 	}
 	store = tmp;
-	normie_print(store);
 }
 

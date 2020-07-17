@@ -33,14 +33,14 @@ typedef struct	s_ls
 void    stat_stuff(char *path);
 void	scan_p_arg(char *arg1, char *arg2, t_ls *store);
 void	scan_options(char *flags, char *path, t_ls *store);
-void	dash_a(char *path, t_ls *store, char *flags);
+void	dash_a(t_ls *store);
 void	normie_print(t_ls *store);
 t_ls	*ft_ls(t_ls *store, char *path, char *flags);
 void	err_handle(DIR *dir, char *path, char *flags);
 void	print_a(t_ls *store);
-void	dash_r(char *path, t_ls *store, char *flags);
-void	dash_t(char *path, t_ls *store, char *flags);
-void	dash_l(char *path, t_ls *store, char *flags);
+void	dash_r(t_ls *stor);
+void	dash_t(t_ls *store, char *flags);
+void	dash_l(t_ls *store, char *flags);
 void	put_id(struct stat buff);
 void	put_time(struct stat buff);
 void    get_blocks(t_ls *store);

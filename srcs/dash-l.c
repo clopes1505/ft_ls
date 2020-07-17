@@ -53,6 +53,7 @@ void	stat_stuff(char *path)
 	struct stat buff;
 
 	lstat(path, &buff);
+	ft_putchar('\t');
 	putperms(buff);
 	ft_putnbr(buff.st_nlink);
 	ft_putchar('\t');
@@ -60,24 +61,26 @@ void	stat_stuff(char *path)
 	ft_putnbr(buff.st_size);
 	ft_putchar('\t');
 	put_time(buff);
-	if ((S_ISLNK(buff.st_mode)))
-		sym_link(path);
+	// if ((S_ISLNK(buff.st_mode)))
+	// 	sym_link(path);
 }
 
-void	dash_l(char *path, t_ls *store, char *flags)
+void	dash_l(t_ls *store, char *flags)
 {
 	t_ls *head;
 
-	store = ft_ls(store, path, flags);
-	base_sort(store);
+
 	put_blocks(store);
 	head = store;
 	while(head->next)
 	{
-		if(head->name[0] == '.')
+		if(!(ft_strchr(flags, 'a')))
 		{
-			head = head->next;
-			continue ;
+			if (head->name[0] == '.')
+			{
+				head = head->next;
+				continue ;
+			}
 		}
 		ft_putstr(head->name);
 		stat_stuff(head->name);

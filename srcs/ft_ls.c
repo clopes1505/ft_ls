@@ -54,7 +54,8 @@ t_ls	*ft_ls(t_ls *store, char *path, char *flags)
 	new = (t_ls*)malloc(sizeof(t_ls));
 	store = new;
 	dir = opendir(path);
-	err_handle(dir, path, flags);
+	if (flags != NULL)
+		err_handle(dir, path, flags);
 	while ((sd = readdir(dir)))
 	{
 		new->name = sd->d_name;
@@ -89,10 +90,11 @@ int		main(int argc, char **argv)
 		scan_p_arg(argv[1], argv[2], store);
 	else if(argc == 1)
 	{
-		store = ft_ls(store, path, argv[1]);
+		store = ft_ls(store, path, NULL);
 		base_sort(store);
 		normie_print(store);
 		delete_stuff(store);
+		return (0);
 	}
 	return (0);
 }
