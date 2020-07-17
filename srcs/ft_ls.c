@@ -14,14 +14,19 @@
 
 void	delete_stuff(t_ls *store)
 {
-	t_ls *current;
-	t_ls *next;
+	// t_ls *current;
+	t_ls *move;
 
-	current = store;
-	while (current->next != NULL)
-		current = current->next;
-	next = current->next;
-	free(next);
+	// current = store;
+	while (store)
+	{
+		move = store;
+		store = store->next;
+		free(move);
+	}
+	// 	current = current->next;
+	// next = current->next;
+	// free(next);
 }
 void	base_sort(t_ls *store)
 {
@@ -83,6 +88,7 @@ int		main(int argc, char **argv)
 		base_sort(store);
 		normie_print(store);
 		delete_stuff(store);
+		free(path);
 	}
 	else if(argc == 2 && argv[1][0] == '-')
 		scan_options(argv[1], path, store);
@@ -94,7 +100,10 @@ int		main(int argc, char **argv)
 		base_sort(store);
 		normie_print(store);
 		delete_stuff(store);
+		system("leaks ft_ls");
 		return (0);
 	}
+	// delete_stuff(store);
+	system("leaks ft_ls");
 	return (0);
 }

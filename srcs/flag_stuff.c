@@ -53,6 +53,7 @@ void	scan_options(char *flags, char *path, t_ls *store)
 				normie_print(store);
 		}
 	}
+	delete_stuff(store);
 }
 void	dash_a(t_ls *store)
 {
